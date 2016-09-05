@@ -33,10 +33,10 @@
           newTweets(streams.home);
         });
 
+        window.visitor = "visitor";
+        streams.users[visitor] = [];
         $body.on('click', 'button[name=writeTweet]', function() {
-          window.visitor = "visitor";
           var message = $('input.message').val();
-          streams.users[visitor] = [];
           writeTweet(message);
         });
         

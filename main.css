@@ -2,14 +2,22 @@ button {
 	font: bold 20px "Courier New";
 	border-radius: 10px;
 	position: relative;
-	left: 45%;
 	color: crimson;
 	background: gold;
 	margin: 10px 10px 10px 10px;
 }
+
+button[name=newTweets] {	
+	left: 45%;
+}
+
 button:hover {
 	background: darkgray;
 	color: gray;
+}
+
+.box {
+	text-align: center;
 }
 
 div {

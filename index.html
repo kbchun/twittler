@@ -3,18 +3,21 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <script src="jquery.timeago.js" type="text/javascript"></script>
     <link rel="stylesheet" href="main.css">
   </head>
   <body>
     <script>
       $(document).ready(function(){
         function newTweets(stream) {
-          $body.html('<button type="button">New Tweets</button>');
+          $body.html('<button type="button" name="newTweets">New Tweets</button>');
+          var buttonWriteTweet = "<br><div class='box'><input class='message' type='text' value='Tweet here!'><button name='writeTweet'>Write Tweet</button></div>";
+          $body.append(buttonWriteTweet);
           var index = stream.length - 1;
           while(index >= 0){
             var tweet = stream[index];
             var $tweet = $('<div></div>');
-            $tweet.html("<a href='#'>@" + tweet.user + "</a>" + ' [' + tweet.created_at + ']: <div class="tweet">' + tweet.message + '</div>');
+            $tweet.html("<a href='#'>@" + tweet.user + "</a>" + ' [' + jQuery.timeago(tweet.created_at) + ']: <div class="tweet">' + tweet.message + '</div>');
             $tweet.appendTo($body);
             index -= 1;
           }
@@ -26,8 +29,15 @@
           newTweets(streams.users[$(this).text().slice(1)]);
         });
 
-        $body.on('click', 'button', function() {
+        $body.on('click', 'button[name=newTweets]', function() {
           newTweets(streams.home);
+        });
+
+        $body.on('click', 'button[name=writeTweet]', function() {
+          window.visitor = "visitor";
+          var message = $('input.message').val();
+          streams.users[visitor] = [];
+          writeTweet(message);
         });
         
         newTweets(streams.home);
